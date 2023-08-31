@@ -1,0 +1,79 @@
+# Here you can define all your data sets by using simple YAML syntax.
+#
+# Documentation for this file format can be found in "The Data Catalog"
+# Link: https://kedro.readthedocs.io/en/stable/data/data_catalog.html
+
+imf_dm_export_raw:
+  type: pandas.ExcelDataSet
+  filepath: data/01_raw/imf-dm-export-20230513.xls
+
+imf_dm_export_pp:
+  type: pandas.CSVDataSet
+  filepath: data/02_intermediate/imf_dm_pp.csv
+  save_args:
+    index: True 
+    index_label: Year
+  load_args:
+    index_col: Year
+
+imf_dm_export_full:
+  type: pandas.CSVDataSet
+  filepath: data/04_feature/imf_dm_full.csv
+  save_args:
+    index: True
+    index_label: Year 
+  load_args:
+    index_col: Year
+
+imf_dm_export_long:
+  type: pandas.CSVDataSet
+  filepath: data/05_model_input/imf_dm_export_long.csv
+  load_args:
+    parse_dates: [ds]
+
+imf_dm_export_preds:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/imf_dm_export_preds.csv
+  save_args:
+    index: True
+    index_label: unique_id
+  load_args:
+    index_col: unique_id
+    parse_dates: [ds]
+
+imf_dm_export_wide:
+  type: pandas.CSVDataSet
+  filepath: data/07_model_output/imf_dm_export_wide.csv
+  save_args:
+    index: True
+    index_label: Country
+  load_args:
+    index_col: Country
+
+imf_dm_export_final:
+  type: pandas.ExcelDataSet
+  filepath: data/08_reporting/imf_dm_export_final.xlsx
+  save_args:
+    float_format: '%.2f'
+
+
+mice_groups:
+  type: json.JSONDataSet
+  filepath: src/time_series_indicium/pipelines/feature_engineering/json_files/mice_groups.json
+
+economic_groups:
+  type: json.JSONDataSet
+  filepath: src/time_series_indicium/pipelines/feature_engineering/json_files/economic_groups.json
+
+missing_countries:
+  type: json.JSONDataSet
+  filepath: src/time_series_indicium/pipelines/feature_engineering/json_files/missing_countries.json
+
+continents_regions:
+  type: json.JSONDataSet
+  filepath: src/time_series_indicium/pipelines/feature_engineering/json_files/continents_regions.json
+
+
+
+
+

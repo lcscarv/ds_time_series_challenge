@@ -1,0 +1,33 @@
+image: iterativeai/cml:0-dvc2-base1
+
+definitions:
+  steps:
+
+    - step: &build
+        name: Install dependencies and run unit testing
+        caches: 
+          - pip
+        script:
+          - pip install -r src/requirements.txt
+          - kedro test
+
+    - step: &report
+        name: Run kedro pipelines and create CML report
+        caches: 
+          - pip
+        script:
+          - pip install -r src/requirements.txt
+          - kedro run --pipeline train_and_generate_metrics
+          - make build_prediction_performance_report
+          - cml send-comment report.md
+
+pipelines:
+    
+    pull-requests:
+
+      '**':
+        - step: *build
+
+      'experiment/*':
+        - step: *build
+        - step: *report

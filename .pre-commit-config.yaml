@@ -1,0 +1,34 @@
+repos:
+  - repo: https://github.com/pycqa/flake8
+    rev: 4.0.1
+    hooks:
+      - id: flake8
+        args: ["--exclude", "venv"]
+
+  - repo: https://github.com/psf/black
+    rev: 22.12.0
+    hooks:
+      - id: black
+        language_version: python3.8.10
+
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0 
+    hooks:
+      - id: isort
+        name: isort (python)
+        args: ["--profile", "black"]
+
+  - repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.1
+    hooks:
+      - id: docformatter
+        name: docformatter (python)
+        args: ["-i"]
+
+  - repo: https://github.com/pre-commit/mirrors-mypy
+    rev: v1.0.1
+    hooks:
+      - id: mypy
+        name: mypy (python)
+        args: ["--no-strict-optional", "--ignore-missing-imports", "--disable-error-code=var-annotated"]
+        #arg "--disable-error-code=var-annotated" was added because of an inconsistency with the kedro file "/docs/source/conf.py", if you are not adding this file in your commit, it is not necessary to use this arg
