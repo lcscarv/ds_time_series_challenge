@@ -1,7 +1,7 @@
 # Desafio Formação Data Science - Análise de Séries Temporais
 
 Esse projeto é referente ao desafio da formação em Data Science do programa Lighthouse da turma de 2023.  
-Nesse desafio foi proposto a análise de séries temporais dos dados obtidos do [International Monetary Fund]([International Monetary Fund - IMF](https://www.imf.org/en/Home)) da variação do índice GDP de diversos países, indo da análise exploratória de dados (EDA) ao forecasting dos anos de 2024 a 2028, comparando com dados de previsão feitos anteriormente pelo Statistica. 
+Nesse desafio foi proposto a análise de séries temporais dos dados obtidos do [International Monetary Fund - IMF](https://www.imf.org/en/Home) da variação do índice GDP de diversos países, indo da análise exploratória de dados (EDA) ao forecasting dos anos de 2024 a 2028, comparando com dados de previsão feitos anteriormente pelo Statistica. 
 
 Nesse projeto foram utilizados o Jupyter Notebook para as análises, experimentação e relatório, que pode ser consultado na pasta `notebooks`,  e o Kedro para a construção do Pipeline do pré-processamento dos dados à previsão, cujos resultados podem ser encontrados na pasta `data/08_reporting`. 
 Os resultados estão no formato de planilha Excel `.xlsx`, organizados da mesma maneira que os dados originais, com a diferença dos dados faltantes preenchidos e previsões dos anos de 2024 a 2028.
