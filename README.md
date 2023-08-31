@@ -1,129 +1,85 @@
-# time_series_indicium
+# Desafio Formação Data Science - Análise de Séries Temporais
 
-## Overview
+Esse projeto é referente ao desafio da formação em Data Science do programa Lighthouse da turma de 2023.  
+Nesse desafio foi proposto a análise de séries temporais dos dados obtidos do [International Monetary Fund]([International Monetary Fund - IMF](https://www.imf.org/en/Home)) da variação do índice GDP de diversos países, indo da análise exploratória de dados (EDA) ao forecasting dos anos de 2024 a 2028, comparando com dados de previsão feitos anteriormente pelo Statistica. 
 
-This is your new Kedro project, which was generated using `Kedro 0.18.4`.
+Nesse projeto foram utilizados o Jupyter Notebook para as análises, experimentação e relatório, que pode ser consultado na pasta `notebooks`,  e o Kedro para a construção do Pipeline do pré-processamento dos dados à previsão, cujos resultados podem ser encontrados na pasta `data/08_reporting`. 
+Os resultados estão no formato de planilha Excel `.xlsx`, organizados da mesma maneira que os dados originais, com a diferença dos dados faltantes preenchidos e previsões dos anos de 2024 a 2028.
 
-Take a look at the [Kedro documentation](https://kedro.readthedocs.io) to get started.
+## 🚀 Começando
 
-## Rules and guidelines
+Essas instruções permitirão que você obtenha uma cópia do projeto em operação na sua máquina local para fins de desenvolvimento e teste.
+Para este projeto, faça uma cópia em sua máquina local utilizando o comando
 
-In order to get the best out of the template:
+`git clone https://github.com/lcscarv/ds_time_series_challenge.git`
 
-* Don't remove any lines from the `.gitignore` file we provide
-* Make sure your results can be reproduced by following a [data engineering convention](https://kedro.readthedocs.io/en/stable/faq/faq.html#what-is-data-engineering-convention)
-* Don't commit data to your repository
-* Don't commit any credentials or your local configuration to your repository. Keep all your credentials and local configuration in `conf/local/`
+### 📋 Pré-requisitos
 
-## How to install dependencies
+É preciso criar um [ambiente virtual](https://pythonacademy.com.br/blog/python-e-virtualenv-como-programar-em-ambientes-virtuais) na pasta home do projeto (caso você ainda não o tenha feito).
 
-Declare any dependencies in `src/requirements.txt` for `pip` installation and `src/environment.yml` for `conda` installation.
+- `python3 -m venv venv` ou
+    
+- `py -3.8 -m venv venv` para Bash no Windows.
+    
 
-To install them, run:
+Caso você também tenha instalada uma versão posterior ao python 3.8, **prefira usar a versão 3.8**. A **versão do Python** utilizada neste projeto é a **3.8.10**.
 
-```
-pip install -r src/requirements.txt
-```
+Além disso, o **virtual environment deve ser ativado toda vez que você abrir o projeto** através do comando:
 
-## How to run your Kedro pipeline
+- `source venv/bin/activate` no Linux ou
+    
+- `source venv/Scripts/activate` em bash no Windows, ou ainda
+    
+- `.\venv\Scripts\activate.ps1` no Windows PowerShell
+    
 
-You can run your Kedro project with:
+Garanta que você está na pasta onde o ambiente virtual foi criado. Se ele for ativado corretamente, o terminal terá uma flag apontando **_(venv)_** na frente do nome do usuário antes de cada comando. Para desativar o ambiente virtual, basta rodar:
 
-```
-kedro run
-```
+- `deactivate`.
+### 🔧 Instalação
 
-## How to test your Kedro project
+O próximo passo é instalar as bibliotecas listadas no arquivo **requirements.txt**. Isso pode ser executado através do [pip](https://pypi.org/project/pip/):
 
-Have a look at the file `src/tests/test_run.py` for instructions on how to write your tests. You can run your tests as follows:
+- `pip install -r src/requirements.txt` ou
+    
+- `python -m pip install -r scr/requirements.txt` para alguns casos em que o comando anterior não funciona.
+    
 
-```
-kedro test
-```
+	Para conferir se todas as bibliotecas foram instaladas corretamente, utilize `pip list` ou `pip freeze` e valide as bibliotecas e suas respectivas versões listadas.
 
-To configure the coverage threshold, go to the `.coveragerc` file.
+## ⚙️ Executando o projeto
 
-## Project dependencies
+Para a execução do pipeline, primeiro é preciso rodar os arquivos `groups.py` e `best_models.py`. Esses arquivos podem ser acessados da seguinte maneira:
+- Estando na pasta central do projeto `time_series_indicium`, acesse a pasta `pipelines`
+`cd src/time_series_indicium/pipelines`
+- Dentro da pasta, primeiro acesse a pasta `feature_engineering` para rodar o arquivo `groups.py`.
+`cd feature_engineering`
+`python -m groups`
+- Retornando à pasta pipelines, acesse a pasta `training` para rodar o arquivo `best_models.py`
+`cd ..`
+`cd training`
+`python -m best_models`
+- Com esses passos finalizados, retorne à pasta central do projeto para rodar o pipeline.
+`kedro run`
 
-To generate or update the dependency requirements for your project:
+Certifique-se de estar na pasta `time_series_indicium` para rodar o comando. Isso irá rodar o projeto de ponta a ponta, resultando em arquivos `.csv` intermediários caso queira consultar as etapas de transformação dos dados (pré-processamento -> imputação -> conversão para dataset de formato longo -> previsões -> tratamento de formato longo para formato wide -> formatação -> dataset final em planilha Excel.)
 
-```
-kedro build-reqs
-```
+## 🛠️ Construído com
 
-This will `pip-compile` the contents of `src/requirements.txt` into a new file `src/requirements.lock`. You can see the output of the resolution by opening `src/requirements.lock`.
+* [Kedro](https://docs.kedro.org/en/stable/) - O framework usado para construção de pipeline de Data Science
+* [Jupyter Notebook](https://docs.jupyter.org/en/latest/) - Usado para experimentação e relatório
+* [Miceforest: Multiple Imputation with LightGBM in Python](https://github.com/AnotherSamWilson/miceforest)- Usada para imputação de valores faltantes
+* [Statsforecast](https://github.com/Nixtla/statsforecast) - Usando para treinamento de modelos e previsão das séries temporais
+* [Pandas](https://pandas.pydata.org/docs/) - Usado para consulta e tratamento de dados
+* [Numpy](https://numpy.org/doc/stable/ ) - Usado para operações nos dados
+* [Seaborn](https://seaborn.pydata.org/) - Usado para visualizações no Notebook.
 
-After this, if you'd like to update your project requirements, please update `src/requirements.txt` and re-run `kedro build-reqs`.
 
-[Further information about project dependencies](https://kedro.readthedocs.io/en/stable/kedro_project_setup/dependencies.html#project-specific-dependencies)
+## ✒️ Autor
 
-## How to work with Kedro and notebooks
 
-> Note: Using `kedro jupyter` or `kedro ipython` to run your notebook provides these variables in scope: `context`, `catalog`, and `startup_error`.
->
-> Jupyter, JupyterLab, and IPython are already included in the project requirements by default, so once you have run `pip install -r src/requirements.txt` you will not need to take any extra steps before you use them.
+* **Lucas de Almeida Sabino Carvalho** - *Data Science Apprentice*  
 
-### Jupyter
-To use Jupyter notebooks in your Kedro project, you need to install Jupyter:
+## 🎁 Agradecimentos
 
-```
-pip install jupyter
-```
-
-After installing Jupyter, you can start a local notebook server:
-
-```
-kedro jupyter notebook
-```
-
-### JupyterLab
-To use JupyterLab, you need to install it:
-
-```
-pip install jupyterlab
-```
-
-You can also start JupyterLab:
-
-```
-kedro jupyter lab
-```
-
-### IPython
-And if you want to run an IPython session:
-
-```
-kedro ipython
-```
-
-### How to convert notebook cells to nodes in a Kedro project
-You can move notebook code over into a Kedro project structure using a mixture of [cell tagging](https://jupyter-notebook.readthedocs.io/en/stable/changelog.html#release-5-0-0) and Kedro CLI commands.
-
-By adding the `node` tag to a cell and running the command below, the cell's source code will be copied over to a Python file within `src/<package_name>/nodes/`:
-
-```
-kedro jupyter convert <filepath_to_my_notebook>
-```
-> *Note:* The name of the Python file matches the name of the original notebook.
-
-Alternatively, you may want to transform all your notebooks in one go. Run the following command to convert all notebook files found in the project root directory and under any of its sub-folders:
-
-```
-kedro jupyter convert --all
-```
-
-### How to ignore notebook output cells in `git`
-To automatically strip out all output cell contents before committing to `git`, you can run `kedro activate-nbstripout`. This will add a hook in `.git/config` which will run `nbstripout` before anything is committed to `git`.
-
-> *Note:* Your output cells will be retained locally.
-
-## Package your Kedro project
-
-[Further information about building project documentation and packaging your project](https://kedro.readthedocs.io/en/stable/tutorial/package_a_project.html)
-
-## How to use pre-commit-hooks linter
-
-* First, `pre-commit` package needs to be installed (the package is already in the `src/requirements.txt` file)
-* The file `.pre-commit-config.yaml` must be added (the file already exists, if necessary, change the package versions)
-* Finally, in the folder where the file was added, use the following command to install the pre-commit:
-    * `pre-commit install`
+* Expresso minha gratidão a todos que tive a liberdade de consultar para tirar dúvidas sobre esse projeto, em especial ao Time 42 e seus membros que deram todo o suporte a seus integrantes lighthousers para que pudessem concluir este desafio.
